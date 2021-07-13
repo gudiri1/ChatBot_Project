@@ -16,7 +16,8 @@ private:
     // data handles (not owned)
     GraphNode *_currentNode;
     GraphNode *_rootNode;
-    ChatLogic *_chatLogic;
+    ChatLogic *_chatLogic;                // not owned. deswegen kein uniquePointer
+    
 
     // proprietary functions
     int ComputeLevenshteinDistance(std::string s1, std::string s2);
