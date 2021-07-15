@@ -19,7 +19,11 @@ private:
 
     // data handles (owned)
     std::vector<std::unique_ptr<GraphNode>> _nodes; //  task3
-    std::vector<GraphEdge *> _edges;
+    
+    // std::vector<GraphEdge *> _edges;    //  task4
+
+    // as the edge information is already tracked for the Nodes, you don't need to have a vector of edges.   _edges
+
 
     ////
     //// EOF STUDENT CODE

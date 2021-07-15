@@ -42,11 +42,11 @@ ChatLogic::~ChatLogic()
     //     delete *it;
     // }
 
-    // delete all edges
-    for (auto it = std::begin(_edges); it != std::end(_edges); ++it)
-    {
-        delete *it;
-    }
+    // delete all edges      task4
+    // for (auto it = std::begin(_edges); it != std::end(_edges); ++it)
+    // {
+    //     delete *it;
+    // }
 
     ////
     //// EOF STUDENT CODE
@@ -164,19 +164,29 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                             auto childNode = std::find_if(_nodes.begin(), _nodes.end(), [&childToken](std::unique_ptr<GraphNode>& node) { return node->GetID() == std::stoi(childToken->second); });
                             // pass the node by its reference not by value to avoid copying it
 
+                            // parentNode nad childNode are NOT a unique_ptr now, 
+                            // they are an iterator of a unique_ptr as what returns from the find_if is an iterator.
+                            // asterisk * to get access to what is inside an iterator
+
+                            //edge->SetChildNode(*childNode);
+                            //edge->SetParentNode(*parentNode);
+                            //_edges.push_back(edge);
+
                             // create new edge
-                            GraphEdge *edge = new GraphEdge(id);
-                            edge->SetChildNode(childNode->get());   // task3
-                            
-                            edge->SetParentNode(parentNode->get());
-                            _edges.push_back(edge);
+                            //GraphEdge *edge = new GraphEdge(id);
+                            std::unique_ptr<GraphEdge> edge = std::make_unique<GraphEdge>(id);     //  task4
+                            edge->SetChildNode((*childNode).get());   // task3
+                                                                                                 // task4                           
+                            edge->SetParentNode((*parentNode).get());
+                            // _edges.push_back(edge);       // task4
 
                             // find all keywords for current node
                             AddAllTokensToElement("KEYWORD", tokens, *edge);
 
                             // store reference in child node and parent node
-                            (*childNode)->AddEdgeToParentNode(edge);
-                            (*parentNode)->AddEdgeToChildNode(edge);
+                            (*childNode)->AddEdgeToParentNode(edge.get());
+                            //(*parentNode)->AddEdgeToChildNode(edge);
+                            (*parentNode)->AddEdgeToChildNode(std::move(edge));    // task4
                         }
 
                         ////
