@@ -22,7 +22,7 @@ private:
     
     // std::vector<GraphEdge *> _edges;    //  task4
 
-    // as the edge information is already tracked for the Nodes, you don't need to have a vector of edges.   _edges
+    // as the edge information is already tracked for the Nodes, no need to have a vector of edges.   _edges
 
 
     ////
@@ -30,7 +30,7 @@ private:
 
     // data handles (not owned)
     GraphNode *_currentNode;
-    ChatBot *_chatBot;
+    ChatBot *_chatBot;           
     ChatBotPanelDialog *_panelDialog;
 
     // proprietary type definitions
